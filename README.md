@@ -50,7 +50,6 @@
    ```bash
    git clone https://github.com/your-username/xom-co-thu-cung-tracker.git
    cd xom-co-thu-cung-tracker
-````
 
 2. **Cài đặt dependencies**:
 
