@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đăng nhập - Xóm Có Thú Cưng</title>
+  
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    button {
+      margin: 10px;
+      padding: 12px 20px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+    img.icon {
+      width: 20px;
+      height: 20px;
+    }
+    #userInfo img {
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Xóm Có Thú Cưng</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/dogs">Xóm Có Chó</a></li>
+          <li class="nav-item"><a class="nav-link" href="/cats">Xóm Có Mèo</a></li>
+          <li class="nav-item"><a class="nav-link" href="/main">Xóm Có Chó Mèo</a></li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" onclick="alert('Cửa hàng Shopee của chúng tôi hiện chưa có sản phẩm. Quay lại sau nhé!')">
+              Cửa hàng Shopee
+            </a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="accounts/Con_sen/">Tài khoản con sen</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Login Options -->
+  <h1>🐾 Xóm Có Thú Cưng</h1>
+  <p>Vui lòng chọn phương thức đăng nhập:</p>
+
+  <button onclick="loginWithGoogle()">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" class="icon">
+    Đăng nhập bằng Google
+  </button>
+
+  <button onclick="loginWithFacebook()">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" class="icon">
+    Đăng nhập bằng Facebook
+  </button>
+
+  <button onclick="loginWithGitHub()">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" class="icon">
+    Đăng nhập bằng GitHub
+  </button>
+
+  <button onclick="loginAnonymously()">
+    <img src="https://img.icons8.com/ios-glyphs/30/000000/incognito.png" class="icon">
+    Vào ẩn danh
+  </button>
+
+  <div id="userInfo" style="margin-top: 40px;"></div>
+
+  <!-- Firebase Auth Logic -->
+  <script>
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBHJOTVvtB874rnv-hFHRdtHoSTzGNIsW0",
+      authDomain: "xom-co-thu-cung.firebaseapp.com",
+      databaseURL: "https://xom-co-thu-cung-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "xom-co-thu-cung",
+      storageBucket: "xom-co-thu-cung.firebasestorage.app",
+      messagingSenderId: "322434925435",
+      appId: "1:322434925435:web:f044fcddb603115ed473de",
+      measurementId: "G-FPRHN1NLCY"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Chuyển hướng nếu đã đăng nhập
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        window.location.href = "/accounts/Con_sen/account";  // Chuyển hướng sau khi đăng nhập
+      }
+    });
+
+    // Các hàm đăng nhập
+    function loginWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(() => window.location.href = "/accounts/Con_sen/account");
+    }
+
+    function loginWithFacebook() {
+      const provider = new firebase.auth.FacebookAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(() => window.location.href = "/accounts/Con_sen/account");
+    }
+
+    function loginWithGitHub() {
+      const provider = new firebase.auth.GithubAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(() => window.location.href = "/accounts/Con_sen/account");
+    }
+
+    function loginAnonymously() {
+      auth.signInAnonymously()
+        .then(() => window.location.href = "/accounts/Con_sen/account");
+    }
+  </script>
+</body>
+</html>
